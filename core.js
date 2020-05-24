@@ -44,7 +44,7 @@ function init() {
 }
 function run() {
   isEggMode = myStorage.get("砸蛋模式") == "true";
-  toast(isEggMode);
+  // toast(isEggMode);
   for (var i = 1; i <= times; i++) {
     if (isEggMode) {
       砸蛋();

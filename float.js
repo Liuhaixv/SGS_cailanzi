@@ -48,7 +48,7 @@ window.送花.on("click", () => {
         point.y = upY;
         storage.put("菜篮子目标坐标", point);
         storage.put("砸蛋模式", "false");
-
+        toast("请点击要送花的目标位置");
         win.close();
         engines.execScriptFile("./core.js");
         return true;
@@ -78,7 +78,7 @@ window.砸蛋.on("click", () => {
         point.y = upY;
         storage.put("菜篮子目标坐标", point);
         storage.put("砸蛋模式", "true");
-
+        toast("请点击要砸蛋的目标位置");
         win.close();
         engines.execScriptFile("./core.js");
         return true;
