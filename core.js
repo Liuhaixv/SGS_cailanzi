@@ -19,7 +19,6 @@ function init() {
   }
   菜篮子目标坐标 = myStorage.get("菜篮子目标坐标");
   myStorage.remove("菜篮子目标坐标");
-  // log("菜篮子目标坐标:" + 菜篮子目标坐标);
   if (myStorage.get("需要截图权限") == "true") {
     images.requestScreenCapture();
     sleep(1000);

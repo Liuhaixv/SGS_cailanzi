@@ -68,6 +68,25 @@ ui.layout(
     <vertical>
       <button id="start" text="start" />
     </vertical>
+
+    <card
+      w="*"
+      h="*"
+      margin="10 5"
+      cardCornerRadius="2dp"
+      cardElevation="1dp"
+      gravity="center_vertical"
+    >
+      <vertical padding="18 8" h="auto">
+        <TextView
+          gravity="left"
+          inputType="number"
+          text="特殊模式(该模式不受以上配置影响)"
+        ></TextView>
+        <button id="全场菜篮子" text="全场砸蛋/送花模式" />
+      </vertical>
+      <View bg="#000000" h="*" w="10" />
+    </card>
   </LinearLayout>
 );
 
@@ -95,13 +114,18 @@ ui.更新.on("click", () => {
   myStorage.put("送菜篮子次数", 数量.toString());
   myStorage.put("送菜篮子间隔", 间隔.toString());
 });
+
 ui.start.on("click", () => {
   var delay = ui.delay.getText();
   myStorage.put("送菜篮子间隔", delay.toString());
-  var d = myStorage.get("送菜篮子间隔");
   engines.execScriptFile("./float.js");
 });
 
+ui.全场菜篮子.on("click", () => {
+  engines.execScriptFile("./float2.js");
+});
+
+/////////////////////////////////////////////////////////////////////////////////
 function init() {
   update_autoHint();
 
