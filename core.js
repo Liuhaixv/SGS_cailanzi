@@ -24,7 +24,7 @@ function init() {
     images.requestScreenCapture();
     sleep(1000);
     聊天按钮坐标 = 获取坐标("聊天按钮坐标");
-    click(聊天按钮坐标.x, 聊天按钮坐标.y);
+    press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
 
     sleep(1000);
 
@@ -35,7 +35,7 @@ function init() {
     // log(送花按钮坐标);
     // log("菜篮子目标坐标:" + 菜篮子目标坐标);
     // log("ok");
-    click(聊天按钮坐标.x, 聊天按钮坐标.y);
+    press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
   } else {
     聊天按钮坐标 = 获取坐标("聊天按钮坐标");
     砸蛋按钮坐标 = 获取坐标("砸蛋按钮坐标");
@@ -97,14 +97,14 @@ function getPointOfImage(name) {
   return result;
 }
 function 砸蛋() {
-  click(聊天按钮坐标.x, 聊天按钮坐标.y);
-  click(砸蛋按钮坐标.x, 砸蛋按钮坐标.y);
-  click(菜篮子目标坐标.x, 菜篮子目标坐标.y);
-  click(菜篮子目标坐标.x, 菜篮子目标坐标.y);
+  press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+  press(砸蛋按钮坐标.x, 砸蛋按钮坐标.y, 1);
+  press(菜篮子目标坐标.x, 菜篮子目标坐标.y, 1);
+  press(菜篮子目标坐标.x, 菜篮子目标坐标.y, 1);
 }
 function 送花() {
-  click(聊天按钮坐标.x, 聊天按钮坐标.y);
-  click(送花按钮坐标.x, 送花按钮坐标.y);
-  click(菜篮子目标坐标.x, 菜篮子目标坐标.y);
-  click(菜篮子目标坐标.x, 菜篮子目标坐标.y);
+  press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+  press(送花按钮坐标.x, 送花按钮坐标.y, 1);
+  press(菜篮子目标坐标.x, 菜篮子目标坐标.y, 1);
+  press(菜篮子目标坐标.x, 菜篮子目标坐标.y, 1);
 }
