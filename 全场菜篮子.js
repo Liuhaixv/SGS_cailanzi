@@ -113,7 +113,7 @@ function init() {
     p[i].y += 横屏分辨率偏移.y;
   }
 
-  var delay = myStorage.get("全场时间间隔");
+  delay = myStorage.get("全场时间间隔");
 }
 
 function run() {
