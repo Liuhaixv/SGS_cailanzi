@@ -43,7 +43,7 @@ window.设置坐标.on("click", () => {
   win.setTouchable(true);
   win.canvas.setOnTouchListener(function (view, event) {
     switch (event.getAction()) {
-      case event.ACTION_UP:
+      case event.ACTION_DOWN:
         upX = event.getX();
         upY = event.getY();
         var point = new Object();
@@ -53,9 +53,23 @@ window.设置坐标.on("click", () => {
           toast("请点击第" + (playerIndex + 2) + "个人的位置");
           myStorage.put(playerIndex + "号位坐标", point);
           playerIndex++;
-        } else {
+        } else if (playerIndex == 6) {
           toast("坐标设置完毕");
           myStorage.put(playerIndex + "号位坐标", point);
+          playerIndex++;
+          engines.execScriptFile("./分辨率校准.js");
+        } else {
+          /**
+           * 校准分辨率
+           */
+          var correctPoint = new Object();
+          var offset = new Object();
+          correctPoint.x = 200;
+          correctPoint.y = 200;
+          offset.x = correctPoint.x - point.x;
+          offset.y = correctPoint.y - point.y;
+          myStorage.put("横屏分辨率偏移", offset);
+
           playerIndex = 0;
           win.close();
         }

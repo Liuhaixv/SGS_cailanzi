@@ -7,18 +7,21 @@ var 聊天按钮坐标;
 var 砸蛋按钮坐标;
 var 送花按钮坐标;
 
+var 横屏分辨率偏移;
+
 init();
 run();
 
 function 全场砸蛋() {
-  for (var index in p) {
-    砸蛋(p[index]);
+  sleep(1000);
+  for (var i = 0; i < 7; i++) {
+    砸蛋(p[i]);
   }
 }
 
 function 全场送花() {
-  for (var index in p) {
-    送花(p[index]);
+  for (var i = 0; i < 7; i++) {
+    送花(p[i]);
   }
 }
 
@@ -65,7 +68,20 @@ function 抓图保存坐标(name) {
   }
 }
 
+function getPointOfImage(name) {
+  var result = images.findImage(
+    captureScreen(),
+    images.read("./" + name + ".png"),
+    {
+      threshold: 0.9,
+    }
+  );
+  return result;
+}
+
 function init() {
+  横屏分辨率偏移 = myStorage.get("横屏分辨率偏移");
+
   if (myStorage.get("需要截图权限") == "true") {
     images.requestScreenCapture();
     sleep(1000);
@@ -83,7 +99,10 @@ function init() {
 
   for (var i = 0; i < 7; i++) {
     p[i] = myStorage.get(i + "号位坐标");
+    p[i].x += 横屏分辨率偏移.x;
+    p[i].y += 横屏分辨率偏移.y;
   }
+  log(p);
 }
 
 function run() {

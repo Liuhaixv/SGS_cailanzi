@@ -1,14 +1,9 @@
-images.requestScreenCapture();
-// log(getPointOfImage("鸡蛋按钮"));
-// log(getPointOfImage("鲜花按钮"));
+events.observeTouch();
 
-function getPointOfImage(name) {
-  var result = images.findImage(
-    captureScreen(),
-    images.read("./" + name + ".png"),
-    {
-      threshold: 0.9,
-    }
-  );
-  return result;
-}
+events.setTouchEventTimeout(30);
+
+toast("请在日志中查看触摸的点的坐标");
+
+events.on("touch", function (point) {
+  log(point);
+});

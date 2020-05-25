@@ -9,16 +9,23 @@ var 砸蛋按钮坐标;
 var 送花按钮坐标;
 var 菜篮子目标坐标;
 
+var 横屏分辨率偏移;
+
 init();
 run();
 function init() {
+  横屏分辨率偏移 = myStorage.get("横屏分辨率偏移");
   times = myStorage.get("送菜篮子次数");
 
   if (myStorage.contains("送菜篮子间隔")) {
     delay = myStorage.get("送菜篮子间隔");
   }
+
   菜篮子目标坐标 = myStorage.get("菜篮子目标坐标");
+  菜篮子目标坐标.x += 横屏分辨率偏移.x;
+  菜篮子目标坐标.y += 横屏分辨率偏移.y;
   myStorage.remove("菜篮子目标坐标");
+
   if (myStorage.get("需要截图权限") == "true") {
     images.requestScreenCapture();
     sleep(1000);
@@ -29,11 +36,6 @@ function init() {
 
     砸蛋按钮坐标 = 获取坐标("砸蛋按钮坐标");
     送花按钮坐标 = 获取坐标("送花按钮坐标");
-    // log(聊天按钮坐标);
-    // log(砸蛋按钮坐标);
-    // log(送花按钮坐标);
-    // log("菜篮子目标坐标:" + 菜篮子目标坐标);
-    // log("ok");
     press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
   } else {
     聊天按钮坐标 = 获取坐标("聊天按钮坐标");

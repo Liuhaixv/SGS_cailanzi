@@ -3,7 +3,7 @@
   "main": "main.js",
   "ignore": ["build"],
   "packageName": "com.cailanzi",
-  "versionName": "1.2.0",
-  "versionCode": 3,
+  "versionName": "1.2.1",
+  "versionCode": 4,
   "icon": "./res/icon.png"
 }
