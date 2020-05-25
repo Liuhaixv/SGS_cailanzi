@@ -9,6 +9,8 @@ var 送花按钮坐标;
 
 var 横屏分辨率偏移;
 
+var delay;
+
 init();
 run();
 
@@ -27,16 +29,24 @@ function 全场送花() {
 
 function 砸蛋(point) {
   press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+  sleep(delay / 4);
   press(砸蛋按钮坐标.x, 砸蛋按钮坐标.y, 1);
+  sleep(delay / 4);
   press(point.x, point.y, 1);
+  sleep(delay / 4);
   press(point.x, point.y, 1);
+  sleep(delay / 4);
 }
 
 function 送花(point) {
   press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+  sleep(delay / 4);
   press(送花按钮坐标.x, 送花按钮坐标.y, 1);
+  sleep(delay / 4);
   press(point.x, point.y, 1);
+  sleep(delay / 4);
   press(point.x, point.y, 1);
+  sleep(delay / 4);
 }
 
 function 获取坐标(name) {
@@ -102,7 +112,8 @@ function init() {
     p[i].x += 横屏分辨率偏移.x;
     p[i].y += 横屏分辨率偏移.y;
   }
-  log(p);
+
+  var delay = myStorage.get("全场时间间隔");
 }
 
 function run() {

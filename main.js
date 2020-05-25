@@ -18,75 +18,117 @@ ui.layout(
       />
       <button id="autoHint" color="white" text="无障碍服务未开启" />
     </vertical>
-    <card
-      w="*"
-      h="100"
-      margin="10 5"
-      cardCornerRadius="2dp"
-      cardElevation="1dp"
-      gravity="center_vertical"
-    >
-      <vertical padding="18 8" h="auto">
-        <TextView
-          gravity="left"
-          inputType="number"
-          text="送花/砸蛋时间间隔(单位:毫秒)"
-        ></TextView>
-        <input w="*" inputType="number" id="delay" hint="1000毫秒=1秒"></input>
-      </vertical>
-      <View bg="#4caf50" h="*" w="10" />
-    </card>
-    <card
-      w="*"
-      h="100"
-      margin="10 5"
-      cardCornerRadius="2dp"
-      cardElevation="1dp"
-      gravity="center_vertical"
-    >
-      <vertical padding="18 8" h="auto">
-        <TextView gravity="left" inputType="number" text="数量"></TextView>
-        <input w="*" inputType="number" id="菜篮子数量" hint="输入数量"></input>
-      </vertical>
-      <View bg="#2196f3" h="*" w="10" />
-    </card>
 
-    <card
-      w="*"
-      h="80"
-      margin="10 5"
-      cardCornerRadius="2dp"
-      cardElevation="1dp"
-      gravity="center_vertical"
-    >
-      <vertical padding="18 8" h="auto">
-        <button id="更新" text="更新配置"></button>
-      </vertical>
-      <View bg="#ab82ff" h="*" w="10" />
-    </card>
+    <appbar background="#ef7a82">
+      <tabs id="tabs" />
+    </appbar>
 
-    <vertical>
-      <button id="start" text="start" />
-    </vertical>
+    <viewpager id="viewpager" textColor="#666666">
+      <vertical>
+        <card
+          w="*"
+          h="100"
+          margin="10 5"
+          cardCornerRadius="2dp"
+          cardElevation="1dp"
+          gravity="center_vertical"
+        >
+          <vertical padding="18 8" h="auto">
+            <TextView
+              gravity="left"
+              inputType="number"
+              text="送花/砸蛋时间间隔(单位:毫秒)"
+            ></TextView>
+            <input
+              w="*"
+              inputType="number"
+              id="delay"
+              hint="1000毫秒=1秒"
+            ></input>
+          </vertical>
+          <View bg="#4caf50" h="*" w="10" />
+        </card>
+        <card
+          w="*"
+          h="100"
+          margin="10 5"
+          cardCornerRadius="2dp"
+          cardElevation="1dp"
+          gravity="center_vertical"
+        >
+          <vertical padding="18 8" h="auto">
+            <TextView gravity="left" inputType="number" text="数量"></TextView>
+            <input
+              w="*"
+              inputType="number"
+              id="菜篮子数量"
+              hint="输入数量"
+            ></input>
+          </vertical>
+          <View bg="#2196f3" h="*" w="10" />
+        </card>
 
-    <card
-      w="*"
-      h="*"
-      margin="10 5"
-      cardCornerRadius="2dp"
-      cardElevation="1dp"
-      gravity="center_vertical"
-    >
-      <vertical padding="18 8" h="auto">
-        <TextView
-          gravity="left"
-          inputType="number"
-          text="特殊模式(该模式不受以上配置影响)"
-        ></TextView>
-        <button id="全场菜篮子" text="全场砸蛋/送花模式" />
+        <card
+          w="*"
+          h="80"
+          margin="10 5"
+          cardCornerRadius="2dp"
+          cardElevation="1dp"
+          gravity="center_vertical"
+        >
+          <vertical padding="18 8" h="auto">
+            <button id="更新" text="更新配置"></button>
+          </vertical>
+          <View bg="#ab82ff" h="*" w="10" />
+        </card>
+
+        <vertical>
+          <button id="start" text="start" />
+        </vertical>
       </vertical>
-      <View bg="#000000" h="*" w="10" />
-    </card>
+      <vertical>
+        <card
+          w="*"
+          h="100"
+          margin="10 5"
+          cardCornerRadius="2dp"
+          cardElevation="1dp"
+          gravity="center_vertical"
+        >
+          <vertical padding="18 8" h="auto">
+            <TextView
+              gravity="left"
+              inputType="number"
+              text="全场送花/砸蛋时间间隔(单位:毫秒)"
+            ></TextView>
+            <input
+              w="*"
+              inputType="number"
+              id="全场时间间隔"
+              hint="1000毫秒=1秒"
+            ></input>
+          </vertical>
+          <View bg="#4caf50" h="*" w="10" />
+        </card>
+        <card
+          w="*"
+          h="80"
+          margin="10 5"
+          cardCornerRadius="2dp"
+          cardElevation="1dp"
+          gravity="center_vertical"
+        >
+          <vertical padding="18 8" h="auto">
+            <button id="更新全场间隔" text="更新配置"></button>
+          </vertical>
+          <View bg="#ab82ff" h="*" w="10" />
+        </card>
+
+        <vertical>
+          <button id="全场菜篮子" text="start" />
+        </vertical>
+      </vertical>
+    </viewpager>
   </LinearLayout>
 );
 
@@ -108,11 +150,21 @@ ui.autoService.setOnCheckedChangeListener(function (widget, checked) {
   update_autoHint();
 });
 
+//设置滑动页面的标题
+ui.viewpager.setTitles(["正常模式", "全场砸蛋/送花模式"]);
+//滑动页面和标签页联动
+ui.tabs.setupWithViewPager(ui.viewpager);
+
 ui.更新.on("click", () => {
   var 数量 = ui.菜篮子数量.getText();
   var 间隔 = ui.delay.getText();
   myStorage.put("送菜篮子次数", 数量.toString());
   myStorage.put("送菜篮子间隔", 间隔.toString());
+});
+
+ui.更新全场间隔.on("click", () => {
+  var 间隔 = ui.全场时间间隔.getText();
+  myStorage.put("全场时间间隔", 间隔.toString());
 });
 
 ui.start.on("click", () => {
@@ -149,6 +201,9 @@ function init() {
   }
   if (myStorage.contains("送菜篮子次数")) {
     ui.菜篮子数量.setText(myStorage.get("送菜篮子次数"));
+  }
+  if (myStorage.contains("全场时间间隔")) {
+    ui.全场时间间隔.setText(myStorage.get("全场时间间隔"));
   }
 }
 

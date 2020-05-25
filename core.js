@@ -52,7 +52,6 @@ function run() {
     } else {
       送花();
     }
-    sleep(delay);
   }
 }
 /**
@@ -99,13 +98,21 @@ function getPointOfImage(name) {
 }
 function 砸蛋() {
   press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+  sleep(delay / 4);
   press(砸蛋按钮坐标.x, 砸蛋按钮坐标.y, 1);
+  sleep(delay / 4);
   press(菜篮子目标坐标.x, 菜篮子目标坐标.y, 1);
+  sleep(delay / 4);
   press(菜篮子目标坐标.x, 菜篮子目标坐标.y, 1);
+  sleep(delay / 4);
 }
 function 送花() {
   press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+  sleep(delay / 4);
   press(送花按钮坐标.x, 送花按钮坐标.y, 1);
+  sleep(delay / 4);
   press(菜篮子目标坐标.x, 菜篮子目标坐标.y, 1);
+  sleep(delay / 4);
   press(菜篮子目标坐标.x, 菜篮子目标坐标.y, 1);
+  sleep(delay / 4);
 }
