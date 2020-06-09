@@ -131,6 +131,16 @@ ui.layout(
       </vertical>
 
       <vertical>
+        <vertical>
+          <text textStyle="bold">我需要手动设置这些坐标吗?</text>
+          <text>
+            下面的坐标默认都是通过抓图自动识别按钮的坐标并保存的，但如果抓图失败，你需要自己设置这些坐标
+          </text>
+          <text textStyle="bold">如何查看坐标?</text>
+          <text>进入开发者模式中打开指针位置</text>
+          <text textStyle="bold">如何进入开发者模式?</text>
+          <text>在设置中点击安卓系统版本号5次以上，会有成功提示</text>
+        </vertical>
         <card
           w="*"
           h="100"
@@ -272,11 +282,13 @@ ui.更新.on("click", () => {
   var 间隔 = ui.delay.getText();
   myStorage.put("送菜篮子次数", 数量.toString());
   myStorage.put("送菜篮子间隔", 间隔.toString());
+  toast("保存完毕");
 });
 
 ui.更新全场间隔.on("click", () => {
   var 间隔 = ui.全场时间间隔.getText();
   myStorage.put("全场时间间隔", 间隔.toString());
+  toast("保存完毕");
 });
 
 ui.start.on("click", () => {
@@ -306,7 +318,7 @@ ui.保存坐标设置.on("click", () => {
   myStorage.put("聊天按钮坐标", 聊天坐标);
   myStorage.put("砸蛋按钮坐标", 鸡蛋坐标);
   myStorage.put("送花按钮坐标", 鲜花坐标);
-  toast("保存坐标完毕");
+  toast("坐标保存完毕");
 });
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -314,6 +326,7 @@ function init() {
   update_autoHint();
 
   myStorage = storages.create("2567875799");
+
   if (
     myStorage.contains("聊天按钮坐标") &&
     myStorage.contains("砸蛋按钮坐标") &&
@@ -342,8 +355,6 @@ function init() {
     ui.聊天按钮X.setText(String(myStorage.get("聊天按钮坐标").x));
     ui.聊天按钮Y.setText(String(myStorage.get("聊天按钮坐标").y));
   }
-
-  log("聊天按钮坐标:" + myStorage.get("聊天按钮坐标"));
 
   if (
     myStorage.contains("砸蛋按钮坐标") &&
