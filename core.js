@@ -27,16 +27,7 @@ function init() {
   myStorage.remove("菜篮子目标坐标");
 
   if (myStorage.get("需要截图权限") == "true") {
-    images.requestScreenCapture();
-    sleep(1000);
-    聊天按钮坐标 = 获取坐标("聊天按钮坐标");
-    press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
-
-    sleep(1000);
-
-    砸蛋按钮坐标 = 获取坐标("砸蛋按钮坐标");
-    送花按钮坐标 = 获取坐标("送花按钮坐标");
-    press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+    抓图更新UI坐标();
   } else {
     聊天按钮坐标 = 获取坐标("聊天按钮坐标");
     砸蛋按钮坐标 = 获取坐标("砸蛋按钮坐标");
@@ -86,6 +77,7 @@ function 抓图保存坐标(name) {
     return point;
   }
 }
+
 function getPointOfImage(name) {
   var result = images.findImage(
     captureScreen(),
@@ -96,6 +88,38 @@ function getPointOfImage(name) {
   );
   return result;
 }
+
+function 抓图更新UI坐标() {
+  images.requestScreenCapture();
+
+  sleep(1000);
+
+  聊天按钮坐标 = 获取坐标("聊天按钮坐标");
+  if (!获取坐标("聊天按钮坐标")) {
+    提示抓图失败();
+    return;
+  }
+  press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+
+  sleep(1000);
+
+  砸蛋按钮坐标 = 获取坐标("砸蛋按钮坐标");
+  if (!获取坐标("砸蛋按钮坐标")) {
+    提示抓图失败();
+    return;
+  }
+  送花按钮坐标 = 获取坐标("送花按钮坐标");
+  press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+  if (!获取坐标("送花按钮坐标")) {
+    提示抓图失败();
+    return;
+  }
+}
+
+function 提示抓图失败() {
+  toast("抓图识别UI坐标失败!请自行设置坐标位置");
+}
+
 function 砸蛋() {
   press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
   sleep(delay / 4);

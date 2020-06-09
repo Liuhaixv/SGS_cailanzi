@@ -89,18 +89,42 @@ function getPointOfImage(name) {
   return result;
 }
 
+function 抓图更新UI坐标() {
+  images.requestScreenCapture();
+
+  sleep(1000);
+
+  聊天按钮坐标 = 获取坐标("聊天按钮坐标");
+  if (!获取坐标("聊天按钮坐标")) {
+    提示抓图失败();
+    return;
+  }
+  press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+
+  sleep(1000);
+
+  砸蛋按钮坐标 = 获取坐标("砸蛋按钮坐标");
+  if (!获取坐标("砸蛋按钮坐标")) {
+    提示抓图失败();
+    return;
+  }
+  送花按钮坐标 = 获取坐标("送花按钮坐标");
+  press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+  if (!获取坐标("送花按钮坐标")) {
+    提示抓图失败();
+    return;
+  }
+}
+
+function 提示抓图失败() {
+  toast("警告:抓图识别UI失败!!请自行设置坐标位置");
+}
+
 function init() {
   横屏分辨率偏移 = myStorage.get("横屏分辨率偏移");
 
   if (myStorage.get("需要截图权限") == "true") {
-    images.requestScreenCapture();
-    sleep(1000);
-    聊天按钮坐标 = 获取坐标("聊天按钮坐标");
-    press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
-    sleep(1000);
-    砸蛋按钮坐标 = 获取坐标("砸蛋按钮坐标");
-    送花按钮坐标 = 获取坐标("送花按钮坐标");
-    press(聊天按钮坐标.x, 聊天按钮坐标.y, 1);
+    抓图更新UI坐标();
   } else {
     聊天按钮坐标 = 获取坐标("聊天按钮坐标");
     砸蛋按钮坐标 = 获取坐标("砸蛋按钮坐标");

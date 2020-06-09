@@ -19,7 +19,7 @@ ui.layout(
       <button id="autoHint" color="white" text="无障碍服务未开启" />
     </vertical>
 
-    <appbar background="#ef7a82">
+    <appbar background="#a9a9a9">
       <tabs id="tabs" />
     </appbar>
 
@@ -86,6 +86,7 @@ ui.layout(
           <button id="start" text="start" />
         </vertical>
       </vertical>
+
       <vertical>
         <card
           w="*"
@@ -128,6 +129,117 @@ ui.layout(
           <button id="全场菜篮子" text="start" />
         </vertical>
       </vertical>
+
+      <vertical>
+        <card
+          w="*"
+          h="100"
+          margin="10 5"
+          cardCornerRadius="2dp"
+          cardElevation="1dp"
+          gravity="center_vertical"
+        >
+          <vertical padding="18 8" h="auto">
+            <TextView
+              gravity="left"
+              inputType="number"
+              text="聊天按钮的坐标"
+            ></TextView>
+            <LinearLayout>
+              <input
+                layout_gravity="left"
+                w="auto"
+                inputType="number"
+                id="聊天按钮X"
+                hint="输入X坐标"
+              ></input>
+              <input
+                layout_gravity="right"
+                w="auto"
+                inputType="number"
+                id="聊天按钮Y"
+                hint="输入Y坐标"
+              ></input>
+              <img h="*" src="file://./聊天按钮.png" />
+            </LinearLayout>
+          </vertical>
+          <View bg="#4caf50" h="*" w="10" />
+        </card>
+        <card
+          w="*"
+          h="100"
+          margin="10 5"
+          cardCornerRadius="2dp"
+          cardElevation="1dp"
+          gravity="center_vertical"
+        >
+          <vertical padding="18 8" h="auto">
+            <TextView
+              gravity="left"
+              inputType="number"
+              text="鸡蛋按钮的坐标"
+            ></TextView>
+            <LinearLayout>
+              <input
+                layout_gravity="left"
+                w="auto"
+                inputType="number"
+                id="鸡蛋按钮X"
+                hint="输入X坐标"
+              ></input>
+              <input
+                layout_gravity="right"
+                w="auto"
+                inputType="number"
+                id="鸡蛋按钮Y"
+                hint="输入Y坐标"
+              ></input>
+              <img h="*" src="file://./鸡蛋按钮.png" />
+            </LinearLayout>
+          </vertical>
+
+          <View bg="#2196f3" h="*" w="10" />
+        </card>
+
+        <card
+          w="*"
+          h="80"
+          margin="10 5"
+          cardCornerRadius="2dp"
+          cardElevation="1dp"
+          gravity="center_vertical"
+        >
+          <vertical padding="18 8" h="auto">
+            <TextView
+              gravity="left"
+              inputType="number"
+              text="鲜花按钮的坐标"
+            ></TextView>
+            <LinearLayout>
+              <input
+                layout_gravity="left"
+                w="auto"
+                inputType="number"
+                id="鲜花按钮X"
+                hint="输入X坐标"
+              ></input>
+              <input
+                layout_gravity="right"
+                w="auto"
+                inputType="number"
+                id="鲜花按钮Y"
+                hint="输入Y坐标"
+              ></input>
+              <img h="*" src="file://./鲜花按钮.png" />
+            </LinearLayout>
+          </vertical>
+          <View bg="#ab82ff" h="*" w="10" />
+        </card>
+
+        <vertical>
+          <button id="保存坐标设置" text="保存坐标设置" />
+        </vertical>
+      </vertical>
     </viewpager>
   </LinearLayout>
 );
@@ -151,7 +263,7 @@ ui.autoService.setOnCheckedChangeListener(function (widget, checked) {
 });
 
 //设置滑动页面的标题
-ui.viewpager.setTitles(["正常模式", "全场砸蛋/送花模式"]);
+ui.viewpager.setTitles(["正常模式", "全场砸蛋/送花模式", "坐标设置"]);
 //滑动页面和标签页联动
 ui.tabs.setupWithViewPager(ui.viewpager);
 
@@ -175,6 +287,26 @@ ui.start.on("click", () => {
 
 ui.全场菜篮子.on("click", () => {
   engines.execScriptFile("./float2.js");
+});
+
+ui.保存坐标设置.on("click", () => {
+  var 鸡蛋坐标 = {};
+  var 鲜花坐标 = {};
+  var 聊天坐标 = {};
+
+  鸡蛋坐标.x = Number(ui.鸡蛋按钮X.getText().toString());
+  鸡蛋坐标.y = Number(ui.鸡蛋按钮Y.getText().toString());
+
+  鲜花坐标.x = Number(ui.鲜花按钮X.getText().toString());
+  鲜花坐标.y = Number(ui.鲜花按钮Y.getText().toString());
+
+  聊天坐标.x = Number(ui.聊天按钮X.getText().toString());
+  聊天坐标.y = Number(ui.聊天按钮Y.getText().toString());
+
+  myStorage.put("聊天按钮坐标", 聊天坐标);
+  myStorage.put("砸蛋按钮坐标", 鸡蛋坐标);
+  myStorage.put("送花按钮坐标", 鲜花坐标);
+  toast("保存坐标完毕");
 });
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -205,6 +337,28 @@ function init() {
   if (myStorage.contains("全场时间间隔")) {
     ui.全场时间间隔.setText(myStorage.get("全场时间间隔"));
   }
+
+  if (myStorage.contains("聊天按钮坐标") && myStorage.get("聊天按钮坐标")) {
+    ui.聊天按钮X.setText(String(myStorage.get("聊天按钮坐标").x));
+    ui.聊天按钮Y.setText(String(myStorage.get("聊天按钮坐标").y));
+  }
+
+  log("聊天按钮坐标:" + myStorage.get("聊天按钮坐标"));
+
+  if (
+    myStorage.contains("砸蛋按钮坐标") &&
+    myStorage.get("砸蛋按钮坐标") != null
+  ) {
+    ui.鸡蛋按钮X.setText(String(myStorage.get("砸蛋按钮坐标").x));
+    ui.鸡蛋按钮Y.setText(String(myStorage.get("砸蛋按钮坐标").y));
+  }
+  if (
+    myStorage.contains("送花按钮坐标") &&
+    myStorage.get("送花按钮坐标") != null
+  ) {
+    ui.鲜花按钮X.setText(String(myStorage.get("送花按钮坐标").x));
+    ui.鲜花按钮Y.setText(String(myStorage.get("送花按钮坐标").y));
+  }
 }
 
 function update_autoHint() {
@@ -216,7 +370,3 @@ function update_autoHint() {
     ui.autoHint.setBackgroundColor(colors.RED);
   }
 }
-
-/**
- * 以下均为测试用代码
- */
